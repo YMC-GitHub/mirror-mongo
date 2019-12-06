@@ -103,6 +103,8 @@ or your can run with k8s .
 ## building log
 
 ```
-#2019-12-04 23:00:37
-ok:mongo--alpine-3.7.3
+#2019-12-06 17:38:00
+ok:mongo-3.4.10-alpine-3.7.3
+ok:mongo-3.6.7-alpine-3.8.4
+ok:mongo-4.0.5-alpine-3.9.4
 ```
