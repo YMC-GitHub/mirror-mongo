@@ -11,6 +11,7 @@ else
     chown -R ${SERVICE_USER}:${SERVICE_USER} ${SERVICE_HOME} $(dirname ${SERVICE_LOGFILE})
 fi
 
+mongod --version
 #exec /usr/bin/mongod
 mongod \
     --port ${SERVICE_PORT} \
