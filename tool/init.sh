@@ -86,6 +86,7 @@ function add_dockerignore() {
 LICENSE
 README.md
 tool/
+dev/
 EOF
     )
     TXT=$(echo "$TXT" | sed "s/^ *#.*//g" | sed "/^$/d")
@@ -260,6 +261,7 @@ function add_gitignore() {
 mongo
 tool/hub_list.txt
 tool/img_list.txt
+dev/
 EOF
     )
     TXT=$(echo "$TXT" | sed "s/^ *#.*//g" | sed "/^$/d")
