@@ -58,7 +58,7 @@ function debug_image() {
         #see cm logs with:
         echo "get cm log ..."
         docker container logs $name-$label >/dev/null >$tpmfile 2>&1
-        ver=$(cat $tpmfile | grep "Version: " | sed "s/MariaDB.*//" | sed "s/Version: '//" | sed "s/^-//" | sed "s/-$//")
+        ver=$(cat $tpmfile | grep "db version" | sed "s/db version v//")
         if [ $? -eq 0 ]; then
             info="$name-$ver-$label"
             echo $info

@@ -37,13 +37,13 @@ source $THIS_FILE_PATH/debug.sh
 echo "gen build-log.txt ..."
 gen_build_log
 #go into cm with:
-#docker exec -it mongon-alpine-3.9.4 /bin/sh
+#docker exec -it mongo-alpine-3.9.4 /bin/sh
 #exit cm with:
 #exit
 #stop cm with:
-#docker container stop mongon-alpine-3.9.4
+#docker container stop mongo-alpine-3.9.4
 #delete cm with:
-#docker container rm --force --volumes mongon-alpine-3.9.4
+#docker container rm --force --volumes mongo-alpine-3.9.4
 
 ### file usage
 #./tool/test.sh
