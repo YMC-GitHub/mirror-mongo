@@ -1,3 +1,69 @@
+#!/bin/sh
+
+function get_issue_txt() {
+    local txt=
+    txt=$(
+        cat <<EOF
+
+$title
+## desc
+
+$des
+
+## expected 
+
+\`\`\`
+$exp
+\`\`\`
+
+## actual
+
+\`\`\`
+$err
+\`\`\`
+
+## behavior
+
+\`\`\`
+$cmd
+\`\`\`
+
+## my env
+
+\`\`\`
+$env
+\`\`\`
+
+## find some thing: 
+
+\`\`\`
+$rea
+\`\`\`
+
+## how to solve: 
+
+\`\`\`
+$sol
+\`\`\`
+
+EOF
+    )
+    echo "$txt"
+}
+
+title=$(
+    cat <<EOF
+get err when test image in vm
+EOF
+)
+
+# 其描述
+des=$(
+    cat <<EOF
+get err when test image in vm
+EOF
+)
+
 # 期望值
 exp=
 # 实际值
@@ -10,7 +76,18 @@ EOF
 # 何行为
 cmd=./tool/test.sh
 
+# 何环境
+env=$(
+    cat <<EOF
+PM:WIN10
+VM:CENTOS 7.7
+CM:APLINE 3.9.4
+note:win+virtual+sharedire
+EOF
+)
 # 查原因
+rea=$(
+    cat <<EOF
 docker run -v "/data/db/mongo":"/data/db/mongo" -it -p "27017":"27017" --name mongo-alpine-3.7.3 mongo:alpine-3.7.3 /bin/sh
 docker container rm -f mongo-alpine-3.7.3
 ls
@@ -20,6 +97,10 @@ ls -l /
 ps
 whoami
 chown -R mongo:mongo /startup.sh
+EOF
+)
+txt=$(get_issue_txt)
+echo "$txt"
 
 # 期望值
 exp=
@@ -33,17 +114,21 @@ EOF
 cmd=./tool/test.sh
 
 # 查问题
+rea=$(
+    cat <<EOF
 docker run -v "/data/db/mongo":"/data/db/mongo" -it -p "27017":"27017" --name mongo-alpine-3.7.3 mongo:alpine-3.7.3 /bin/sh
 docker container rm -f mongo-alpine-3.7.3
 ls
 pwd
 ls -l /
-#adduser -h \${SERVICE_HOME} -s /sbin/nologin -u 1000 -D \${SERVICE_USER}
+EOF
+)
+txt=$(get_issue_txt)
+echo "$txt"
 
 # 期望值
 exp=
 # 实际值
-err=
 err=$(
     cat <<EOF
 /bin/sh: can't open '/startup.sh'
@@ -57,15 +142,21 @@ docker run -v "/data/db/mongo":"/data/db/mongo" -it -p "27017":"27017" --name mo
 EOF
 )
 
-# 查问题
+# 查原因
+rea=$(
+    cat <<EOF
 docker run -v "/data/db/mongo":"/data/db/mongo" -it -p "27017":"27017" --name mongo-alpine-3.7.3 mongo:alpine-3.7.3 /bin/sh
 ls -l /
 #>-rwxrwx--x    1 root     root           323 Dec  4 14:22 startup.sh
+EOF
+)
+
+txt=$(get_issue_txt)
+echo "$txt"
 
 # 期望值
 exp=
 # 实际值
-err=
 err=$(
     cat <<EOF
 [initandlisten] User Assertion: 20:Attempted to create a lock file on a read-only directory: /data/db/mongo 
@@ -106,11 +197,12 @@ chmod +rwx -R /data/db/mongo
 #have to use the root user to run
 EOF
 )
+txt=$(get_issue_txt)
+echo "$txt"
 
 # 期望值
 exp=
 # 实际值
-err=
 err=$(
     cat <<EOF
 adduser: user 'root' in use
@@ -122,3 +214,6 @@ cmd=$(
 ./tool/build
 EOF
 )
+
+txt=$(get_issue_txt)
+echo "$txt"
