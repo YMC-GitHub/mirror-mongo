@@ -235,7 +235,7 @@ FROM registry.cn-hangzhou.aliyuncs.com/yemiancheng/mongo:alpine-3.9.4
 
 your can run with docker cli :
 \`\`\`
-docker run -v /mongo/data/:/var/lib/mongo -d -p 3306:3306 --name mongo-alpine-3.9.4 where/your/dockerfile
+docker run -v \$(pwd)/mongo/data/:/data/db/mongo -d -p 27017:27017 --name mongo-alpine-3.9.4 where/your/dockerfile
 \`\`\`
 
 or your can run with docker-compose ,
