@@ -18,6 +18,7 @@ mongod \
     --dbpath ${SERVICE_HOME} \
     --logpath ${SERVICE_LOGFILE} \
     --logappend \
+    --bind_ip ${SERVICE_IP} \
     -${SERVICE_LOGLEVEL}
 #--config  /etc/conf.d/mongos.conf
 
