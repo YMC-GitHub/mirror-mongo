@@ -31,13 +31,16 @@ ARG SERVICE_HOME
 ARG SERVICE_PORT
 ARG SERVICE_LOGFILE
 ARG SERVICE_LOGLEVEL
-
+ARG SERVICE_VERSION
+ARG SERVICE_IP
 # 默认设置
 ENV SERVICE_USER \${SERVICE_USER:-root}
 ENV SERVICE_HOME \${SERVICE_HOME:-/data/db/mongo}
 ENV SERVICE_PORT \${SERVICE_PORT:-27017}
 ENV SERVICE_LOGFILE \${SERVICE_LOGFILE:-/data/log/mongod.log}
 ENV SERVICE_LOGLEVEL \${SERVICE_LOGLEVEL:-v}
+ENV SERVICE_VERSION ${SERVICE_VERSION:-4.0.5-r0}
+ENV SERVICE_IP ${SERVICE_IP:-0.0.0.0}
 ENV TIMEZONE Asia/Shanghai
 
 # 拷贝脚本
@@ -57,7 +60,7 @@ COPY startup.sh /startup.sh
 
 RUN \
   sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-    apk add --update dumb-init mongodb && rm -f /var/cache/apk/* && \
+    apk add --update dumb-init mongodb=\${SERVICE_VERSION} && rm -f /var/cache/apk/* && \
     chmod +x /startup.sh
     
 # 服务用户
